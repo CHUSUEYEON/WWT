@@ -30,6 +30,7 @@ postCourseData:[
          -->
         <div class="postContainer">
             <div id="postIcon"></div>
+            <div class="userNickname"><%= data.userNickname %></div>
             <h2><%=postData.postTitle%></h2>
             <div
                 id="mapid"
@@ -51,10 +52,8 @@ postCourseData:[
                             style="width: 100%"
                         />
                     </li>
-                    <li id="postWriting"><%=postCourseData[0].courseText%></li>
-                    <li class="map" style="height: 200px">
-                        <%#=postCourseData[0].courseLon, postCourseData[0].couresLat%>위치
-                    </li>
+                    <li id="postWriting"><%=postCourseData[i].courseText%></li>
+                    <li class="map" style="height: 200px; margin-bottom: 15px; z-index: 0"></li>
                 </ul>
             </div>
             <% } %>
@@ -63,7 +62,7 @@ postCourseData:[
             <ul class="comment">
                 <li class="commentForm">
                     <form action="" id="commentForm" name="comment">
-                        <h4>댓글쓰기(<span></span>)</h4>
+                        <h4>댓글쓰기(<span><%= commentResult.length %></span>)</h4>
                         <span class="psBox">
                             <input
                                 type="text"
@@ -76,9 +75,47 @@ postCourseData:[
                         </span>
                     </form>
                 </li>
-                <li><%= commentResult[0].userNickname %></li>
+                <li id="commentList">
+                    <% for(let i=commentResult.length-1; i>=0; i--){%>
+                    <ul class="commentRow">
+                        <% if(commentResult[i].isDeleted) {%>
+                        <li style="text-align: center; height: 100px; line-height: 100px">
+                            댓글이 삭제되었습니다.
+                        </li>
+                        <% } else {%>
+                        <li class="commentID"><%= commentResult[i].userNickname %></li>
+                        <li class="commentContent"><%= commentResult[i].commentText %></li>
+                        <li class="commentDate">
+                            <div class="postBTNs">
+                                <button class="replyComment" type="button" onclick="commentReply()">
+                                    댓글
+                                    <img
+                                        src="../static/image/comment.png"
+                                        alt=""
+                                        style="width: 11px"
+                                    />
+                                </button>
+                                <button
+                                    class="deleteCommentBTN"
+                                    id="<%=commentResult[i].commentID%>"
+                                    type="button"
+                                    onclick="deleteComment(this.id)"
+                                >
+                                    댓글 삭제
+                                </button>
+                            </div>
+                            <%= commentResult[i].createdAt.toLocaleString() %>
+                        </li>
+                        <li class="commentReply" style="display: none">
+                            <ul>
+                                <li>하하</li>
+                            </ul>
+                        </li>
+                        <% } %>
+                    </ul>
+                    <%}%>
+                </li>
             </ul>
-            <% console.log(data) %> <% console.log('----->',postData) %>
         </div>
         <script>
             const commentBtn = document.querySelector("#commentForm");
@@ -110,7 +147,7 @@ postCourseData:[
 
                 // OpenStreetMap 타일 레이어를 추가합니다.
                 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-                    maxZoom: 10,
+                    maxZoom: 21,
                 }).addTo(mymap);
 
                 locations.forEach(function (location) {
@@ -136,75 +173,25 @@ postCourseData:[
                     L.marker([location.latitude, location.longitude]).addTo(map);
                 });
             }
+
+            function commentReply() {
+                let replyBox = document.querySelectorAll(".commentReply");
+                replyBox[0].setAttribute("style", "display: block");
+            }
+
             showMap();
             showSmallMap();
-            function Comment(content) {
-                let today = new Date();
-                // this.userid = data.userNickname;
-                this.userid = `<%= data.userNickname%>`;
-                this.content = content;
-                this.date = today.toLocaleString();
-            }
 
-            function createRow(userid, content, date) {
-                const ul = document.createElement("ul");
-                const li1 = document.createElement("li");
-                const li2 = document.createElement("li");
-                const li3 = document.createElement("li");
-
-                ul.append(li1);
-                ul.append(li2);
-                ul.append(li3);
-
-                ul.setAttribute("class", "commentRow");
-                li1.setAttribute("class", "commentID");
-                li2.setAttribute("class", "commentContent");
-                li3.setAttribute("class", "commentDate");
-
-                li1.innerHTML = userid;
-                li2.innerHTML = content;
-                li3.innerHTML = date;
-
-                return ul;
-            }
-            function drawing() {
-                commentList.innerHTML = "";
-                for (let i = list.length - 1; i >= 0; i--) {
-                    const row = createRow(list[i].userid, list[i].content, list[i].date);
-                    commentList.appendChild(row);
-                }
-            }
-            function totalRecord() {
-                total.innerHTML = `${list.length}`;
-            }
-            function commentBtnHandler(e) {
-                e.preventDefault();
-                const input = e.target.content;
-                if (input.value === "") {
-                    alert("내용을 넣고 등록 버튼을 눌러주세요");
-                    return;
-                }
-                const commentObj = new Comment(input.value);
-                list.push(commentObj);
-                totalRecord();
-
-                drawing();
-                e.target.reset();
-            }
-
-            // totalRecord();
-            // commentBtn.addEventListener("submit", commentBtnHandler);
-            // console.log(form.content.value);
-
-            totalRecord();
             function postComment() {
                 console.log(form.content.value);
                 console.log(list.length + 1);
+                console.log("<%= postData.postNumber%>");
+                let commentText = form.content.value;
                 const data = {
                     postNumber: "<%= postData.postNumber%>",
                     // userID: getPost.useID,
                     userID: "<%=data.id%>",
-                    commentText: form.content.value,
+                    commentText: commentText.toString(),
                 };
                 axios({
                     method: "POST",
@@ -213,17 +200,31 @@ postCourseData:[
                 })
                     .then((data) => {
                         if (data) {
-                            console.log(data);
-                            const commentObj = new Comment(data.commentText);
-                            list.push(commentObj);
-                            totalRecord();
-                            drawing();
+                            locations.href = "/getPost/" + `<%= postData.postNumber %>`;
                         } else {
                             alert("다시 시도해주세요");
                         }
                     })
                     // .then(function (data) {})
                     .catch((err) => console.log(err));
+            }
+            function deleteComment(id) {
+                console.log(id);
+                axios({
+                    url: "/deleteComment",
+                    method: "DELETE",
+                    data: {
+                        commentID: id,
+                    },
+                }).then((res) => {
+                    console.log(res.data);
+                    if (res.data.isSuccess) {
+                        alert("댓글이 삭제되었습니다.");
+                        location.href = "/getPost/" + `<%= postData.postNumber %>`;
+                    } else {
+                        alert("댓글은 본인만 삭제할 수 있습니다.");
+                    }
+                });
             }
         </script>
     </body>

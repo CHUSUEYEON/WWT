@@ -6,7 +6,7 @@
         console.log("****************************",postResult) %>
         <div class="postEditContainer">
             <h2 class="H1WWT">What Was Today</h2>
-            <form action="/writePost" method="post" name="wwtPostEdit">
+            <form name="wwtPostEdit">
                 <div class="inputContainer">
                     <% if(isModify){ %>
                     <fieldset>
@@ -140,7 +140,7 @@
                         <input type="file" name="" id="postEditFile" />
                         <!-- 수정할 땐 이미지가 있는 게 좋을 것 같아서 넣었는데, 결과물 보고 별로면 없애도 될 것 같아요. -->
                         <img
-                            src="/static/uploads/<%= postResult.reImage %>"
+                            src="/<%= postResult.reImage %>"
                             alt="<%= postResult.postTitle %> Image"
                         />
                         <input
@@ -226,6 +226,8 @@
                 </div>
                 <% } %>
             </form>
+            <br />
+            <%#console.log(courseResult[0].courseImagePath) %>
         </div>
         <script>
             const form = document.forms["wwtPostEdit"];
@@ -361,35 +363,55 @@
                 formData.append("postEditFile", file.files[0]);
 
                 console.log(form.title.value);
-                let postImagePath = document.getElementById("postEditFile");
+                // console.log("=====");
+                // console.log(`<%#= courseResult[0].courseImagePath%>`);
+                // let postImagePath = `<%#= courseResult[0].courseImagePath%>`;
+                // console.log("&&&&&&&postumagePath&&&&&&&", `<%#= postImagePath%>`);
                 let postBoxList = document.getElementsByClassName("postBox");
                 let weatherRadio = document.querySelector('input[name="weather"]:checked').value;
                 let postTitle = document.querySelector('input[name="title"]').value;
-                let postContent = document.querySelector('textarea[name="postContent"]').value;
+                let postContent = document.querySelectorAll('textarea[name="postContent"]');
+                console.log("=======" + postContent[0]);
+                console.log(postContent[1] + "=======");
                 let postCourse = [];
                 for (let i = 0; i < postBoxList.length; i++) {
                     console.log(postBoxList[i]);
-                    console.log(postContent);
+                    console.log(postContent[i]);
                     let postLonLat = postBoxList[i].id.toString().split(",");
                     console.log(postLonLat);
-                    console.log("::::::::::::::::::", postImagePath);
                     postCourse[i] = {
-                        courseImagePath: "postImagePath",
+                        // courseImagePath: "tt",
                         courseLon: postLonLat[0],
                         courseLat: postLonLat[1],
-                        courseText: postContent,
+                        courseText: postContent[i].value,
                     };
                 }
-                const data = {
-                    postTitle: postTitle,
-                    weather: weatherRadio,
-                    region: "서울",
-                    postCourse: postCourse,
-                };
+                console.log(postCourse);
+                console.log("문자열로 변경");
+                console.log(JSON.stringify(postCourse));
+                // const data = {
+                //     postTitle: postTitle,
+                //     weather: weatherRadio,
+                //     region: "서울",
+                //     postCourse: postCourse,
+                // };
+
+                formData.append("postTitle", postTitle);
+                formData.append("weather", weatherRadio);
+                formData.append("region", "서울");
+                formData.append("postCourse", JSON.stringify(postCourse));
+                console.log(formData);
+                for (let key of formData.keys()) {
+                    console.log("-----formdata");
+                    console.log(formData.get(key));
+                }
                 axios({
                     method: "POST",
                     url: "/writePost",
-                    data: data,
+                    data: formData,
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
                 })
                     .then((data) => {
                         if (data) {
@@ -403,19 +425,19 @@
                     .catch((err) => console.log(err));
 
                 // multer
-                axios({
-                    method: "POST",
-                    url: "/writePost",
-                    data: formData,
-                    headers: {
-                        "Content-Type": "multipart/form-data",
-                    },
-                })
-                    .then((res) => {
-                        document.location.href = "/main";
-                    })
-                    // .then(function (data) {})
-                    .catch((err) => console.log(err));
+                // axios({
+                //     method: "POST",
+                //     url: "/uploadPost",
+                //     data: formData,
+                //     headers: {
+                //         "Content-Type": "multipart/form-data",
+                //     },
+                // })
+                //     .then((res) => {
+                //         document.location.href = "/main";
+                //     })
+                //     // .then(function (data) {})
+                //     .catch((err) => console.log(err));
             }
             let count = 1;
             function addPost() {
@@ -425,7 +447,7 @@
                 console.log(addBTN);
                 console.log(regionBox);
 
-                regionNewBox.innerHTML = `<textarea name="" id="" cols="30" rows="10" placeholder="내용을 입력해주세요" style="height: 300px" maxlength="500"></textarea><input type="file" name="file${++count}" id="postEditFile" /><input type="text" id="searchText" placeholder="찾으시는 위치를 적어주세요"/><div class="searchResult"></div> <button type="button" onclick="getPlaces()" value="위치검색" id="searchBTN"> 위치 검색하기 </button>`;
+                regionNewBox.innerHTML = `<textarea name="postContent" id="" cols="30" rows="10" placeholder="내용을 입력해주세요" style="height: 300px" maxlength="500"></textarea><input type="file" name="" id="postEditFile" /><input type="text" id="searchText" placeholder="찾으시는 위치를 적어주세요"/><div class="searchResult"></div> <button type="button" onclick="getPlaces()" value="위치검색" id="searchBTN"> 위치 검색하기 </button>`;
                 regionBox.append(regionNewBox);
             }
 

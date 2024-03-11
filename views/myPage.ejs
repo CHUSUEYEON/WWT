@@ -46,8 +46,8 @@
             <div class="box-wrap">
                 <div class="box">
                     <div class="img">
-                        <img src=/static/uploads/post<%=myPosts[i].reImage%>
-                        alt="<%myPosts[i].postNumber%>번 게시글" />
+                        <img src=/<%=myPosts[i].reImage%> alt="<%myPosts[i].postNumber%>번 게시글"
+                        />
                     </div>
                     <div class="info">
                         <p><a href="/putPostRequest/<%=myPosts[i].postNumber%>">글 수정하기</a></p>

@@ -84,7 +84,7 @@ body {
 }
 /* header */
 header {
-    background-color: #7b8a9f;
+    background-color: #7a8da7;
     padding: 15px 0;
     display: flex;
     flex-direction: row-reverse;
@@ -188,7 +188,7 @@ header {
 .sidebar {
     width: 100%;
     height: 120px;
-    background: #3a5d8e;
+    background: #6c84a7;
     position: fixed;
     display: block;
     top: -100px;
@@ -514,7 +514,6 @@ hr {
     padding: 8px 0;
     line-height: 30px;
 }
-
 /* post edit */
 /* post */
 .postContainer {
@@ -780,11 +779,22 @@ li {
     margin-bottom: 10px;
 }
 .commentDate {
+    display: flex;
+    justify-content: space-between;
     padding: 2px 5px;
     font-size: 13px;
     border-top: 1px solid #ebebeb;
     text-align: end;
 }
+.postBTNs > button {
+    border: none;
+    outline: none;
+    background-color: white;
+    cursor: pointer;
+    padding: 2px;
+    margin-right: 15px;
+}
+
 /* admin CSS */
 .adminBody {
     display: flex;

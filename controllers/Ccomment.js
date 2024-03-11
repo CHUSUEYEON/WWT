@@ -26,7 +26,8 @@ exports.postComment = (req, res) => {
 };
 
 exports.deleteComment = (req, res) => {
-    const COMMENTID = req.params.commentID;
+    const COMMENTID = req.body.commentID;
+    console.log(COMMENTID == "7");
     if (!req.session.data) {
         res.send("권한이 없습니다!");
     } else {
@@ -36,11 +37,12 @@ exports.deleteComment = (req, res) => {
             },
         })
             .then((findResult) => {
+                console.log("=====");
                 console.log(findResult);
                 console.log(req.session.data.id);
                 console.log(findResult.userID);
                 if (req.session.data.id !== findResult.userID) {
-                    res.send("권한이 없습니다!");
+                    res.send({ isSuccess: false });
                 } else {
                     model.PostComment.update(
                         {
@@ -53,18 +55,21 @@ exports.deleteComment = (req, res) => {
                         }
                     )
                         .then(() => {
-                            res.redirect(`/getPost/${findResult.PostNumber}`);
+                            res.send("성공");
+                            res.send({ isSuccess: true });
                         })
                         .catch((err) => {
                             console.log(
                                 "게시글 댓글에 대해 2번째로 DB조회하다 오류가 발생했습니다!",
                                 err
                             );
+                            res.send({ isSuccess: false });
                         });
                 }
             })
             .catch((err) => {
                 console.log("게시글 댓글에 대해 DB조회하다 오류가 발생했습니다!", err);
+                res.send({ isSuccess: false });
             });
     }
 };

@@ -2,7 +2,9 @@ const model = require("../models");
 const path = require("path");
 const id = 1;
 exports.postPost = (req, res) => {
-    console.log(req.session);
+    console.log("req.file");
+    console.log(req.file);
+    // console.log("-----------", req.session);
 
     if (req.session.userID) {
         console.log(req.body.postTitle);
@@ -10,16 +12,25 @@ exports.postPost = (req, res) => {
         const title = req.body.postTitle;
         const weather = req.body.weather;
         const region = req.body.region;
-        const postCourseList = req.body.postCourse;
+        const postCourseList = JSON.parse(req.body.postCourse);
+
+        console.log("postCourseList type", typeof postCourseList);
+
+        // console.log(req.file);
+        console.log("req.body-=-----");
+        console.log(req.body);
+
         model.Post.create({
             userID: req.session.data.id,
             postTitle: title,
             weather: weather,
             region: region,
-            reImage: postCourseList[0].courseImagePath, // 글 불러오기를 위해 대표 이미지로 가장 첫 코스의 이미지를 가져오도록
+            reImage: req.file.path,
+            // reImage: postCourseList[0].courseImagePath, // 글 불러오기를 위해 대표 이미지로 가장 첫 코스의 이미지를 가져오도록
         })
             .then((result) => {
-                console.log("temp", result.postNumber);
+                console.log("-----postCourse----------");
+                console.log(postCourseList[0]);
                 for (let i = 0; i < postCourseList.length; i++) {
                     model.PostCourse.create({
                         postNumber: result.postNumber,
@@ -49,6 +60,7 @@ exports.showPost = (req, res) => {
         where: {
             postNumber: PostNumber,
         },
+        include: [{ model: model.User }],
     }).then((postData) => {
         model.PostCourse.findAll({
             where: {
@@ -210,7 +222,7 @@ exports.putPost = (req, res) => {
                 postTitle: title,
                 weather: weather,
                 region: region,
-                reImage: postCourseList[0].courseImagePath,
+                reImage: req.file.path,
             },
             {
                 where: {
