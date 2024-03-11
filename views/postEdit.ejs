@@ -391,27 +391,7 @@
                         courseText: postContent[i].value,
                     };
                 }
-<<<<<<< HEAD
-                const data = {
-                    postTitle: postTitle,
-                    weather: weatherRadio,
-                    region: "서울",
-                    postCourse: [
-                        {
-                            courseImagePath: "temp",
-                            courseLon: 12.12,
-                            courseLat: 13.13,
-                            courseText: "course설명입니다",
-                        },
-                        {
-                            courseImagePath: "temp",
-                            courseLon: 12.12,
-                            courseLat: 13.13,
-                            courseText: "course설명입니다",
-                        },
-                    ],
-                };
-=======
+
                 console.log(postCourse);
                 console.log("문자열로 변경");
                 console.log(JSON.stringify(postCourse));
@@ -431,7 +411,6 @@
                     console.log("-----formdata");
                     console.log(formData.get(key));
                 }
->>>>>>> develop
                 axios({
                     method: "POST",
                     url: "/writePost",
