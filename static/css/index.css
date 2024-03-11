@@ -1,11 +1,20 @@
+html {
+    height: 100%;
+}
+* {
+    margin: 0;
+    padding: 0;
+}
 body {
     padding-top: 5px;
     font-family: Arial, sans-serif;
-    /* background-color: #f2f2f2; */
-    overflow: auto;
-    background-image: url(../image/skyBackground.jpeg);
+    box-sizing: border-box;
+
+    height: 100%;
+    width: 100%;
     background-repeat: no-repeat;
     background-size: cover;
+    background-attachment: fixed;
     background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)),
         url("../image/skyBackground.jpeg");
 }
@@ -325,6 +334,8 @@ input[id="menuicon"]:checked + label + div {
 .loginForm {
     margin-top: 20px; /* Example margin from the header */
     text-align: center; /* Align form elements at the center */
+    /* height: 50%; */
+    /* position: static; */
 }
 input[type="text"],
 input[type="password"],
