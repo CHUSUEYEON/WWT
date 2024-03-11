@@ -47,12 +47,12 @@ postCourseData:[
                 <ul>
                     <li id="postImg">
                         <img
-                            src="/static/uploads/<%=postData.reImage%>"
+                            src="/<%=postData.reImage%>"
                             alt="<% postData.postTitle %> Image"
                             style="width: 100%"
                         />
                     </li>
-                    <li id="postWriting"><%=postCourseData[0].courseText%></li>
+                    <li id="postWriting"><%=postCourseData[i].courseText%></li>
                     <li class="map" style="height: 200px">
                         <%#=postCourseData[0].courseLon, postCourseData[0].couresLat%>위치
                     </li>

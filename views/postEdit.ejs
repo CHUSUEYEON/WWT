@@ -156,7 +156,7 @@
                         <% } %>
                     </div>
                     <button type="button" onclick="addPost()" id="addBTN">+</button>
-                    <button class="writePostBTN" type="button" onclick="appendPost()">
+                    <button class="writePostBTN" type="button" onclick="modifyPost()">
                         Would you like to post?
                     </button>
                     <br />
@@ -462,6 +462,74 @@
                     alert("게시글이 삭제되었습니다.");
                     document.location.href = "/myPage";
                 });
+            }
+
+            function modifyPost() {
+                //multer
+                const form = document.forms["wwtPostEdit"];
+                const file = document.getElementById("postEditFile");
+                const formData = new FormData();
+                formData.append("postEditFile", file.files[0]);
+
+                console.log(form.title.value);
+                // console.log("=====");
+                // console.log(`<%#= courseResult[0].courseImagePath%>`);
+                // let postImagePath = `<%#= courseResult[0].courseImagePath%>`;
+                // console.log("&&&&&&&postumagePath&&&&&&&", `<%#= postImagePath%>`);
+                let postBoxList = document.getElementsByClassName("postBox");
+                let weatherRadio = document.querySelector('input[name="weather"]:checked').value;
+                let postTitle = document.querySelector('input[name="title"]').value;
+                let postContent = document.querySelector('textarea[name="postContent"]').value;
+                let postCourse = [];
+                for (let i = 0; i < postBoxList.length; i++) {
+                    console.log(postBoxList[i]);
+                    console.log(postContent);
+                    let postLonLat = postBoxList[i].id.toString().split(",");
+                    console.log(postLonLat);
+                    postCourse[i] = {
+                        // courseImagePath: "tt",
+                        courseLon: postLonLat[0],
+                        courseLat: postLonLat[1],
+                        courseText: postContent,
+                    };
+                }
+                console.log(postCourse);
+                console.log("문자열로 변경");
+                console.log(JSON.stringify(postCourse));
+                // const data = {
+                //     postTitle: postTitle,
+                //     weather: weatherRadio,
+                //     region: "서울",
+                //     postCourse: postCourse,
+                // };
+
+                formData.append("postTitle", postTitle);
+                formData.append("weather", weatherRadio);
+                formData.append("region", "서울");
+                formData.append("postCourse", JSON.stringify(postCourse));
+                console.log(formData);
+                for (let key of formData.keys()) {
+                    console.log("-----formdata");
+                    console.log(formData.get(key));
+                }
+                axios({
+                    method: "POST",
+                    url: "/writePost",
+                    data: formData,
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                })
+                    .then((data) => {
+                        if (data) {
+                            console.log(data);
+                            location.href = "/main";
+                        } else {
+                            alert("다시 시도해주세요");
+                        }
+                    })
+                    // .then(function (data) {})
+                    .catch((err) => console.log(err));
             }
         </script>
     </body>
