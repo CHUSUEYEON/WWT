@@ -8,6 +8,7 @@ html {
 }
 body {
     /* padding-top: 5px; */
+    overflow: auto;
     font-family: Arial, sans-serif;
     box-sizing: border-box;
     padding: 5px 16px 0;
@@ -678,7 +679,7 @@ button[value="위치 선택"] {
 }
 /* profile edit */
 .profileEditContainer {
-    padding-top: 50px;
+    padding-top: 30px;
     width: 30%;
     margin: 100px auto;
     display: flex;
@@ -707,14 +708,16 @@ button[value="위치 선택"] {
     /* border: 1px solid red; */
 }
 .profileEditIcon {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     /* border: 1px solid gray; */
-    border-radius: 50px;
+    border-radius: 50%;
     box-shadow: 5px 5px 5px rgb(207, 207, 207);
     border: 1px solid rgb(215, 215, 215);
     background-color: white;
     margin-right: 10px;
+    position: relative;
+    left: 2.3rem;
 }
 .profileEditIcon > #imageElement {
     width: 100%;
@@ -723,16 +726,19 @@ button[value="위치 선택"] {
 }
 #profileEditIconBTN {
     border: none;
-    padding: 20px;
+    padding: 18px;
     height: 30px;
-    background-color: rgb(248, 248, 248);
-    /* border-radius: 10px; */
+    background-color: rgb(221, 212, 223);
+    border-radius: 10px;
     box-shadow: 5px 5px 5px rgb(207, 207, 207);
     border: 1px solid rgb(215, 215, 215);
     color: #3c3c3c;
     line-height: 0px;
     font-size: 12px;
-    margin-left: 70px;
+    /* margin-left: 70px; */
+    position: relative;
+    left: 15rem;
+    bottom: 2.5rem;
 }
 #profileEditIconBTN:hover {
     background-color: #b1b1b1;
@@ -745,24 +751,34 @@ button[value="위치 선택"] {
     margin: 0 auto;
     border: none;
     border-bottom: 1px solid rgb(217, 217, 217);
-    /* box-shadow: 5px 5px 5px rgb(217, 217, 217); */
+    box-shadow: 5px 5px 5px rgb(217, 217, 217);
 }
-.profileEditContainer form > textarea {
+.profileEditContainer form > .profileUserText {
+    display: block;
     border: none;
-    margin-bottom: 10px;
-    width: 98%;
-    /* box-shadow: 5px 5px 5px rgb(217, 217, 217); */
+    margin: 20px auto;
+    width: 90%;
+    box-shadow: 5px 5px 5px rgb(217, 217, 217);
 }
-.profileEditContainer > button {
-    width: 100%;
-    /* margin-bottom: 15px; */
+.profileEditBTN {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+.profileEditBTN > button {
+    width: 35%;
+    margin: 0 20px 15px;
+    /* border: 2px solid rgb(248, 229, 241); */
     border: none;
-    padding: 10px;
+    padding: 10px 0;
+    border-radius: 7px;
     background-color: rgb(248, 248, 248);
+    box-shadow: 5px 5px 5px rgb(207, 207, 207);
+
     color: #3c3c3c;
     font-size: 14px;
 }
-.profileEditContainer > button:hover {
+.profileEditBTN > button:hover {
     background-color: #b1b1b1;
     color: rgb(248, 248, 248);
 }

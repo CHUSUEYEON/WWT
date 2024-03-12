@@ -27,15 +27,18 @@
                 <br />
                 <input type="text" name="userPW" placeholder="비밀번호" required />
                 <textarea
+                    class="profileUserText"
                     name="userText"
                     cols="30"
-                    rows="10"
+                    rows="6"
                     placeholder="소개 글을 작성해주세요"
                 ></textarea>
                 <br />
             </form>
-            <button type="button" onclick="profileEdit()">프로필 편집</button>
-            <button type="button" onclick="deleteUser()">회원탈퇴</button>
+            <div class="profileEditBTN">
+                <button type="button" onclick="profileEdit()">프로필 편집</button>
+                <button type="button" onclick="deleteUser()">회원탈퇴</button>
+            </div>
         </div>
 
         <script>
