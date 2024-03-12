@@ -345,41 +345,61 @@ input[id="menuicon"]:checked + label + div {
 .loginForm {
     margin-top: 20px; /* Example margin from the header */
     text-align: center; /* Align form elements at the center */
-    /* height: 50%; */
+    height: 50%;
     /* position: static; */
+    /* border: 3px solid salmon; */
+    /* display: inline-block; */
+}
+.loginDIV {
+    /* border: 3px solid #f8f8f8; */
+    /* width: 10rem;
+    height: 10rem; */
+    display: inline-block;
+    padding: 50px 30px 40px;
+    font-weight: 800;
+    font-size: 2rem;
+    background-color: #7f93b0;
+    border-radius: 4%;
+}
+input[type="text"] {
+    margin-top: 20px;
+    margin-bottom: 0;
 }
 input[type="text"],
 input[type="password"],
 input[type="email"] {
-    margin-bottom: 10px;
+    /* margin-bottom: 5px; */
     padding: 5px 10px;
     /* border-radius: 5px; */
-    border: 2px solid #333;
+    border: 1px solid #7a8da6;
     width: 250px;
-    height: 25px;
+    height: 30px;
     font-size: 14px;
+    border-radius: 2%;
 }
 .loginBTN,
 .joinBTN {
     margin: 20px 0;
-    background-color: #333;
-    color: white;
+    background-color: #b9bfd5;
+    color: rgb(77, 80, 87);
     cursor: pointer;
-    width: 270px;
+    width: 250px;
     height: 35px;
-    border: 2px solid #333;
+    border: 1px solid #b9bfd2;
     font-size: 14px;
+    font-weight: 700;
 }
 .loginBTN:hover,
 .joinBTN:hover {
-    background-color: #555;
+    background-color: #99a2a9;
+    border: 0.2px solid #7a8da6;
 }
 .loginJoin {
     display: block;
     width: 100%;
     text-align: center;
-    color: #333;
-    font-size: 20px;
+    color: #3f4042;
+    font-size: 16px;
 }
 
 /* mypage */

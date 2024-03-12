@@ -4,21 +4,27 @@
     <body>
         <%- include('include/header')%>
 
-        <h1 class="H1WWT">What Was Today</h1>
+        <h1 class="H1WWT" style="color: #383d43">What Was Today</h1>
         <!-- <form name="form_info" action="/profileEdit" method="POST">
             <input type="hidden" name="userID" />
         </form> -->
         <form class="loginForm" name="form-login">
-            <input id="userID" type="text" name="userID" placeholder="아이디" required /><br />
-            <input
-                id="userPW"
-                type="password"
-                name="userPW"
-                placeholder="비밀번호"
-                required
-            /><br />
-            <button class="loginBTN" type="button" onclick="Login()">Login</button><br />
-            <a class="loginJoin" href="/join">회원가입 하시겠습니까?</a>
+            <div class="loginDIV">
+                <p style="color: #c8cccf">Login</p>
+                <br />
+                <hr />
+
+                <input id="userID" type="text" name="userID" placeholder="아이디" required /><br />
+                <input
+                    id="userPW"
+                    type="password"
+                    name="userPW"
+                    placeholder="비밀번호"
+                    required
+                /><br />
+                <button class="loginBTN" type="button" onclick="Login()">로그인</button><br />
+                <a class="loginJoin" href="/join">회원가입 하시겠습니까?</a>
+            </div>
         </form>
         <script>
             const Login = () => {
