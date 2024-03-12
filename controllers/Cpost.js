@@ -218,8 +218,9 @@ exports.putPostRequest = (req, res) => {
     }
 };
 
-exports.putPost = (req, res) => {
+exports.putPost = async (req, res) => {
     const PostNumber = req.params.postID;
+
     if (!req.session.data) {
         res.send("세션이 만료되었습니다. 다시 로그인 해주세요");
     } else {
@@ -227,37 +228,42 @@ exports.putPost = (req, res) => {
         const weather = req.body.weather;
         const region = req.body.region;
         const postCourseList = req.body.postCourse;
-        console.log("==============req.file.path============");
-        model.Post.update(
-            {
-                postTitle: title,
-                weather: weather,
-                region: region,
-                reImage: req.file.path,
-            },
-            {
-                where: {
-                    postNumber: PostNumber,
+
+        try {
+            await model.Post.update(
+                {
+                    postTitle: title,
+                    weather: weather,
+                    region: region,
+                    //reImage: req.file.path,
                 },
-            }
-        ).then(() => {
-            model.PostCourse.destroy({
-                where: {
-                    postNumber: PostNumber,
-                },
-            }).then(() => {
-                for (let i = 0; i < postCourseList.length; i++) {
-                    model.PostCourse.create({
+                {
+                    where: {
                         postNumber: PostNumber,
-                        courseImagePath: postCourseList[i].courseImagePath,
-                        courseLon: postCourseList[i].courseLon,
-                        courseLat: postCourseList[i].courseLat,
-                        courseText: postCourseList[i].courseText,
-                    });
+                    },
                 }
-                res.redirect(`/getPost/${PostNumber}`);
-            });
-        });
+            );
+
+            for (let i = 0; i < postCourseList.length; i++) {
+                await model.PostCourse.update(
+                    {
+                        courseText: postCourseList[i].courseText,
+                    },
+                    {
+                        where: {
+                            courseNumber: postCourseList[i].courseNumber,
+                        },
+                    }
+                );
+            }
+
+            // 모든 업데이트가 완료된 후에 응답을 보냄
+            res.send("게시물이 성공적으로 업데이트되었습니다.");
+        } catch (error) {
+            // 오류 발생 시 오류 메시지를 응답으로 보냄
+            console.error(error);
+            res.status(500).send("서버 오류 발생");
+        }
     }
 };
 exports.writePost = (req, res) => {
