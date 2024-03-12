@@ -37,13 +37,13 @@
         <br /><br />
         <p class="myPagePostCount">게시물 <%= myPagePostCount%></p>
         <!-- </div> -->
-        <hr width="70%" />
+        <hr width="75%" />
         <br /><br />
         <div class="inner">
             <!-- Boxes -->
             <!-- 이미지 경로 이름은 확인하고 변경할 수도 있음(/static/uploads/post Or /static/) -->
-            <% for(let i = 0; i < myPosts.length ; i++ ) {%>
             <div class="box-wrap">
+                <% for(let i = 0; i < myPosts.length ; i++ ) {%>
                 <div class="box">
                     <div class="img">
                         <img src=/<%=myPosts[i].reImage%> alt="<%myPosts[i].postNumber%>번 게시글"

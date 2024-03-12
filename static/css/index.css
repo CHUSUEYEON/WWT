@@ -1,8 +1,23 @@
+html {
+    height: 100%;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 body {
-    padding-top: 5px;
+    /* padding-top: 5px; */
     font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
-    overflow: auto;
+    box-sizing: border-box;
+    padding: 5px 16px 0;
+    height: 100%;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)),
+        url("../image/skyBackground.jpeg");
 }
 
 /* 전체 css */
@@ -29,21 +44,31 @@ body {
     box-shadow: 5px 5px 5px rgb(207, 207, 207);
     border: 1px solid rgb(215, 215, 215);
 }
+.inner {
+    max-width: 900px;
+    margin: 0 auto;
+    /* border: 1px solid red; */
+}
 .box-wrap {
-    display: flex;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
+    display: grid;
+    /* grid-template-rows: 1fr 1fr 1fr; */
+    grid-template-columns: 1fr 1fr 1fr;
+    /* justify-content: space-evenly;
+    flex-wrap: wrap; */
+    grid-gap: 10px;
+    gap: 10px;
 }
 .box {
+    /* border: 1px solid blue; */
     position: relative;
-    width: 400px;
-    height: 300px;
+    width: 100%;
+    /* height: 300px; */
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
     margin: 5px;
 }
 .box img {
     width: 100%;
-    height: 300px;
+    /* height: 300px; */
     overflow: hidden;
 }
 .box .info {
@@ -79,7 +104,7 @@ body {
 }
 /* header */
 header {
-    background-color: #7b8a9f;
+    background-color: #7a8da7;
     padding: 15px 0;
     display: flex;
     flex-direction: row-reverse;
@@ -183,7 +208,7 @@ header {
 .sidebar {
     width: 100%;
     height: 120px;
-    background: #222;
+    background: #6c84a7;
     position: fixed;
     display: block;
     top: -100px;
@@ -320,39 +345,75 @@ input[id="menuicon"]:checked + label + div {
 .loginForm {
     margin-top: 20px; /* Example margin from the header */
     text-align: center; /* Align form elements at the center */
+    height: 50%;
+    /* position: static; */
+    /* border: 3px solid salmon; */
+    /* display: inline-block; */
+}
+.loginDIV {
+    /* border: 3px solid #f8f8f8; */
+    /* width: 10rem;
+    height: 10rem; */
+    display: inline-block;
+    padding: 50px 30px 40px;
+    font-weight: 800;
+    font-size: 2rem;
+    background-color: #7f93b0;
+    border-radius: 4%;
+}
+.joinDIV {
+    display: inline-block;
+    padding: 50px 45px 20px;
+    font-weight: 800;
+    font-size: 2rem;
+    background-color: #7f93b0;
+    border-radius: 4%;
+}
+.joinH1 {
+    margin-top: 70px;
+    margin-bottom: 30px;
+}
+#userID {
+    margin-top: 20px;
+    /* margin-bottom: 5px; */
 }
 input[type="text"],
 input[type="password"],
+input[type="userName"],
 input[type="email"] {
-    margin-bottom: 10px;
+    margin-bottom: 7px;
     padding: 5px 10px;
     /* border-radius: 5px; */
-    border: 2px solid #333;
+    border: 1px solid #7a8da6;
     width: 250px;
-    height: 25px;
+    height: 30px;
     font-size: 14px;
+    border-radius: 2%;
 }
 .loginBTN,
 .joinBTN {
     margin: 20px 0;
-    background-color: #333;
-    color: white;
+    background-color: #b9bfd5;
+    color: rgb(77, 80, 87);
     cursor: pointer;
-    width: 270px;
+    width: 250px;
     height: 35px;
-    border: 2px solid #333;
+    border: 1px solid #b9bfd2;
     font-size: 14px;
+    font-weight: 700;
+    border-radius: 5px;
 }
 .loginBTN:hover,
 .joinBTN:hover {
-    background-color: #555;
+    background-color: #99a2a9;
+    border: 0.2px solid #7a8da6;
 }
 .loginJoin {
     display: block;
     width: 100%;
     text-align: center;
-    color: #333;
-    font-size: 20px;
+    color: #3f4042;
+    font-size: 16px;
 }
 
 /* mypage */
@@ -379,10 +440,9 @@ input[type="email"] {
 #myPageIcon {
     width: 130px;
     height: 130px;
-    border: 1px solid gray;
     border-radius: 50%;
     box-shadow: 5px 5px 5px rgb(207, 207, 207);
-    border: 1px solid rgb(215, 215, 215);
+    border: 1px solid rgb(220, 220, 220);
 }
 #myPageIcon > img {
     width: 100%;
@@ -398,7 +458,7 @@ input[type="email"] {
     width: 280px;
     height: 130px;
     border: #7d7d7d;
-    background-color: #f2f2f2;
+    background-color: rgba(0, 0, 255, 0);
     /* border: 1px solid black; */
     position: relative;
     right: 8.3%;
@@ -412,12 +472,12 @@ input[type="email"] {
 } */
 .myPagePostCountDIV > p {
     position: relative;
-    left: 31%;
+    left: 35%;
 }
 .myPagePostCount {
     color: #555;
     position: relative;
-    left: 31%;
+    left: 34%;
 }
 
 .myPagePostCountName {
@@ -434,8 +494,10 @@ input[type="email"] {
     /* border: 1px solid rgb(215, 215, 215); */
 }
 hr {
-    border-style: groove;
+    border-style: solid;
     color: #b1b1b1;
+    max-width: 900px;
+    margin: 0 auto;
 }
 .myPageEditBTN,
 .myPagePostBTN {

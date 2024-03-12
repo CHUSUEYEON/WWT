@@ -3,35 +3,53 @@
     <!-- <%- include('include/head', { title: '회원가입' })%> -->
     <body>
         <%- include('include/header')%>
-        <H1 class="H1WWT">What Was Today</H1>
+        <H1 class="H1WWT joinH1" style="color: #383d43">What Was Today</H1>
         <form class="joinForm" name="form-join">
-            <input type="text" id="userID" name="userID" placeholder="아이디" required /><br />
-            <input type="password" id="userPW" name="userPW" placeholder="비밀번호" required />
-            <br />
-            <input type="text" id="userName" name="userName" placeholder="이름" required /> <br />
-            <input
-                type="text"
-                id="userNickname"
-                name="userNickname"
-                placeholder="닉네임"
-                required
-            />
-            <br />
-            <input
-                type="email"
-                id="userEmail"
-                name="userEmail"
-                placeholder="이메일 주소"
-                required
-            /><br />
-            <!-- <textarea
-                name=""
-                id=""
-                cols="30"
-                rows="10"
-                placeholder="소개 글을 작성해주세요"
-            ></textarea> -->
-            <button class="joinBTN" type="button" onclick="joinUs()">Join us</button>
+            <div class="joinDIV">
+                <p style="color: #606d75">Join us!</p>
+                <br />
+                <hr color="" />
+
+                <input type="text" id="userID" name="userID" placeholder="아이디" required /> <br />
+                <input
+                    type="password"
+                    id="userPW"
+                    name="userPW"
+                    placeholder="비밀번호"
+                    required
+                /><br />
+                <input
+                    type="text"
+                    id="userName"
+                    name="userName"
+                    placeholder="이름"
+                    required
+                /><br />
+                <input
+                    type="text"
+                    id="userNickname"
+                    name="userNickname"
+                    placeholder="닉네임"
+                    required
+                />
+                <br />
+                <input
+                    type="email"
+                    id="userEmail"
+                    name="userEmail"
+                    placeholder="이메일 주소"
+                    required
+                />
+                <br />
+                <!-- <textarea
+                    name=""
+                    id=""
+                    cols="30"
+                    rows="10"
+                    placeholder="소개 글을 작성해주세요"
+                    ></textarea> -->
+                <button class="joinBTN" type="button" onclick="joinUs()">Join us</button>
+            </div>
         </form>
         <script>
             const joinUs = () => {
