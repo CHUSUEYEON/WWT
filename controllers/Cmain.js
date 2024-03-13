@@ -136,7 +136,6 @@ exports.postEdit = (req, res) => {
                 isLogin: true,
                 isModify: false,
                 data: result,
-                postResult: { postNumber: 0 },
             });
         });
     } else {

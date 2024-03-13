@@ -74,8 +74,8 @@ router.delete("/deletePost", postController.deletePost); //삭제할 게시글�
 
 router.get("/putPostRequest/:postID", postController.putPostRequest);
 router.put(
-    "/putPost",
-    // multer.uploadPostPhoto.single("postEditFile"),
+    "/putPost/:postID",
+    multer.uploadPostPhoto.single("postEditFile"),
     postController.putPost
 ); //이 코드는, post api /writePost와 완전 일치합니다.
 // post /writePost와 같은 req.body를 작성하신 후, put api로 전송하면 됩니다.

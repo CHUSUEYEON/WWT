@@ -7,7 +7,6 @@
         <div class="postEditContainer">
             <h2 class="H1WWT">What Was Today</h2>
             <form name="wwtPostEdit">
-                `
                 <div class="inputContainer">
                     <% if(isModify){ %>
                     <fieldset>
@@ -87,11 +86,6 @@
                     />
                     <div class="regionBox">
                         <% for(let i = 0; i < courseResult.length ; i++ ) {%>
-                        <input
-                            type="hidden"
-                            value="<%=courseResult[i].courseNumber%>"
-                            class="hiddenCourseNumber"
-                        />
                         <textarea
                             name="postContent"
                             id=""
@@ -107,7 +101,6 @@
                         <!-- 수정할 땐 이미지가 있는 게 좋을 것 같아서 넣었는데, 결과물 보고 별로면 없애도 될 것 같아요. -->
                         <div class="searchResult">
                             <img
-                                style="width: 100%"
                                 src="/<%= postResult.reImage %>"
                                 alt="<%= postResult.postTitle %> Image"
                             />
@@ -123,9 +116,9 @@
                         </button> -->
                         <% } %>
                     </div>
-                    <!-- <button type="button" onclick="addPost()" id="addBTN">+</button> -->
-                    <button class="writePostBTN" type="button" onclick="modifyPost()">
-                        (수정하기)Would you like to post?
+                    <button type="button" onclick="addPost()" id="addBTN">+</button>
+                    <button class="writePostBTN" type="button" onclick="appendPost()">
+                        Would you like to post?
                     </button>
                     <br />
                     <br />
@@ -193,6 +186,7 @@
                 </div>
                 <% } %>
             </form>
+            <%#console.log(courseResult[0].courseImagePath) %>
         </div>
         <script>
             const form = document.forms["wwtPostEdit"];
@@ -389,6 +383,21 @@
                     })
                     // .then(function (data) {})
                     .catch((err) => console.log(err));
+
+                // multer
+                // axios({
+                //     method: "POST",
+                //     url: "/uploadPost",
+                //     data: formData,
+                //     headers: {
+                //         "Content-Type": "multipart/form-data",
+                //     },
+                // })
+                //     .then((res) => {
+                //         document.location.href = "/main";
+                //     })
+                //     // .then(function (data) {})
+                //     .catch((err) => console.log(err));
             }
 
             function addPost() {
@@ -417,51 +426,6 @@
                     alert("게시글이 삭제되었습니다.");
                     document.location.href = "/myPage";
                 });
-            }
-
-            function modifyPost() {
-                const form = document.forms["wwtPostEdit"];
-                const file = document.getElementById("postEditFile");
-
-                let weatherRadio = document.querySelector('input[name="weather"]:checked').value;
-                let postTitle = document.querySelector('input[name="title"]').value;
-                const regionBox = document.querySelector(".regionBox");
-                const hiddenCourseNumber = document.querySelectorAll(".hiddenCourseNumber");
-                const courseContentText = regionBox.querySelectorAll("textarea");
-                const postCourse = [];
-                // const data = [];
-                for (let i = 0; i < courseContentText.length; i++) {
-                    const courseText = courseContentText[i].value;
-                    const courseNumber = hiddenCourseNumber[i].value;
-
-                    postCourse.push({
-                        courseNumber,
-                        courseText,
-                    });
-                }
-                console.log(`<%=postResult.postNumber%>;`);
-                const data = {
-                    postID: "<%=postResult.postNumber%>",
-                    postTitle: postTitle,
-                    weather: weatherRadio,
-                    region: "서울",
-                    postCourse,
-                };
-
-                axios({
-                    method: "PUT",
-                    url: "/putPost",
-                    data: data,
-                })
-                    .then((data) => {
-                        if (data) {
-                            console.log(data);
-                            document.location.href = "/main";
-                        } else {
-                            alert("다시 시도해주세요");
-                        }
-                    })
-                    .catch((err) => console.log(err));
             }
         </script>
     </body>
