@@ -1,7 +1,7 @@
 {
-    "name": "ready4",
+    "name": "WhatWasToday",
     "version": "1.0.0",
-    "description": "",
+    "description": "'What was today'는 날씨, 위치, 지도 API를 이용하여 기상에 따른 데이트 코스를 공유하는 SNS입니다.",
     "main": "app.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
@@ -10,7 +10,7 @@
         "dev": "cross-env NODE_ENV=development nodemon app.js"
     },
     "keywords": [],
-    "author": "",
+    "author": "ready4",
     "license": "ISC",
     "dependencies": {
         "@elastic/elasticsearch": "^8.12.2",
